@@ -34,6 +34,11 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
 .btn.ghost{background:transparent;color:var(--muted);box-shadow:none;border:1px solid var(--line);}
 .btn.danger{background:var(--red);box-shadow:0 8px 24px rgba(220,38,38,.35);}
 .btn.tiny{background:transparent;color:var(--dim);font-size:11px;padding:5px 8px;box-shadow:none;opacity:.3;}
+.trap-ov{position:fixed;inset:0;z-index:200;background:rgba(3,4,12,.88);display:flex;align-items:center;justify-content:center;}
+.trap-box{position:relative;width:286px;padding:22px 18px 18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 20px 60px rgba(0,0,0,.65);}
+.trap-t{font-size:19px;font-weight:800;}
+.trap-s{font-size:12px;color:var(--dim);text-align:center;line-height:1.6;}
+.trap-box .btn{width:100%;}
 .dialog{position:relative;width:100%;max-width:440px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 22px 22px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
 .dialog h2{font-size:20px;text-align:center;margin-bottom:6px;}
 .dialog .step{color:var(--dim);font-size:12px;text-align:center;margin-bottom:14px;letter-spacing:1px;}
@@ -403,16 +408,16 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       var c={};
       /* ===== 类型 1-30 的参数（每种3个独特变体） ===== */
       if(type==='buttons'){var counts=[4,10,7];var labels=[];for(var n=1;n<counts[k];n++)labels.push(String(n));labels.push(WORD[k]);c={labels:labels,correct:WORD[k],tiny:true};}
-      else if(type==='hold'){var ms=[3000,9000,15000];c={ms:ms[k],shape:SHAPES[k]};}
+      else if(type==='hold'){var ms=[4000,11000,18000];c={ms:ms[k],shape:SHAPES[k]};}
       else if(type==='arrow'){var traps=[DIRS[0],DIRS[4],DIRS[2]];c={trap:traps[k],correct:k===0?DIRS[4]:(k===1?DIRS[6]:'center')};}
       else if(type==='color'){var mc=makeColor(k);c={items:mc.items,correct:mc.correct};prompt=COLOR_VERB[k].replace('X',mc.name);}
-      else if(type==='countdown'){var secs=[4,8,12];c={sec:secs[k]};}
-      else if(type==='hidden'){var fakes=[4,8,12];c={fakes:fakes[k],opacity:Math.max(0.035,0.06-k*0.02)};}
-      else if(type==='runaway'){var jumps=[400,250,120];var holds=[2000,3500,5000];c={jump:jumps[k],hold:holds[k]};}
-      else if(type==='wait'){var secs=[6,12,20];c={sec:secs[k],baits:BAITS[k%6]};}
+      else if(type==='countdown'){var secs=[5,10,14];c={sec:secs[k]};}
+      else if(type==='hidden'){var fakes=[6,10,14];c={fakes:fakes[k],opacity:Math.max(0.03,0.055-k*0.018)};}
+      else if(type==='runaway'){var jumps=[300,170,90];var holds=[2500,4500,6500];c={jump:jumps[k],hold:holds[k]};}
+      else if(type==='wait'){var secs=[8,16,26];c={sec:secs[k],baits:BAITS[k%6]};}
       else if(type==='sequence'){var lens=[3,5,7];var order=detShuf([1,2,3,4,5,6,7,8,9].slice(0,lens[k]),k*13+5);c={order:order};prompt=pool[k]+' '+order.join('-');}
-      else if(type==='multitap'){var counts=[8,20,35];c={count:counts[k]};}
-      else if(type==='drag'){var tols=[0.18,0.10,0.05];c={tolerance:tols[k],side:k};}
+      else if(type==='multitap'){var counts=[12,28,45];c={count:counts[k]};}
+      else if(type==='drag'){var tols=[0.14,0.08,0.04];c={tolerance:tols[k],side:k};}
       else if(type==='reverse'){var counts=[4,8,12];var labels=[];for(var n=1;n<counts[k];n++)labels.push('按'+n);labels.push('别按');c={labels:labels,correct:'别按',tiny:true};}
       else if(type==='typing'){c={answer:TYPE_WORDS[k]};prompt='输入：'+TYPE_WORDS[k];}
       else if(type==='slider'){var targets=[15,55,85];c={target:targets[k]};prompt='滑到 '+targets[k];}
@@ -421,40 +426,44 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       else if(type==='double'){var secs=[2000,3500,6000];c={sec:secs[k]};prompt='两边各按满 '+(secs[k]*0.6/1000).toFixed(1)+' 秒（可先后）';}
       else if(type==='holdRelease'){var secs=[2,5,8];c={sec:secs[k]};prompt='按住，'+secs[k]+'秒后松手';}
       else if(type==='reaction'){var mins=[2,4,6];var maxs=[5,7,10];c={min:mins[k],max:maxs[k]};}
-      else if(type==='memory'){var lens=[3,5,7];var seq=detShuf([1,2,3,4,5,6,7,8,9].slice(0,lens[k]),k*11+7);c={seq:seq,showMs:2000+k*500};prompt='记住这 '+lens[k]+' 个';}
+      else if(type==='memory'){var lens=[4,6,8];var seq=detShuf([1,2,3,4,5,6,7,8,9].slice(0,lens[k]),k*11+7);c={seq:seq,showMs:2000+k*500};prompt='记住这 '+lens[k]+' 个';}
       else if(type==='count'){var mc2=makeCount(k);c=mc2;prompt='几个'+mc2.ask+'？';}
       else if(type==='pattern'){var pt=PATTERNS[k];c={seq:pt.seq,opt:pt.opt,correct:pt.correct};prompt=pt.seq.join(' ')+' ?';}
-      else if(type==='toggle'){var counts=[3,4,5];var masks=['101','1101','01101'];c={count:counts[k],startMask:Array(counts[k]+1).join('0'),targetMask:masks[k]};prompt='调成 '+masks[k];}
+      else if(type==='toggle'){var counts=[3,4,5];var masks=['101','1101','01101'];var sm0='';for(var q=0;q<counts[k];q++){sm0+=(((i*7+q*5)%3)===0?'1':'0');}c={count:counts[k],startMask:sm0,targetMask:masks[k]};prompt='调成 '+masks[k];}
       else if(type==='spin'){var targets=[90,180,270];c={target:targets[k]};prompt='转到 '+targets[k]+'°';}
       else if(type==='timing'){var ats=[3,6,9];var froms=[10,15,20];c={at:ats[k],from:froms[k]};prompt='倒计时到 '+ats[k]+' 时按';}
       else if(type==='password'){c={answer:TYPE_WORDS[(k+3)%6]};prompt='密码提示：'+TYPE_WORDS[(k+3)%6];}
       else if(type==='avoid'){c={obs:makeObs(k)};}
       else if(type==='whisper'){c={text:WHISPERS[k]};}
-      else if(type==='fill'){var counts=[4,9,12];c={count:counts[k]};}
+      else if(type==='fill'){var counts=[6,12,16];c={count:counts[k]};}
       else if(type==='roulette'){var sps=[3,6,10];c={target:REGIONS[k%4],speed:sps[k]};prompt='停在 '+({red:'红',gold:'金',green:'绿',blue:'蓝'}[REGIONS[k%4]])+' 色';}
       /* ===== 类型 31-50 的参数 ===== */
-      else if(type==='oddout'){var counts=[6,9,12];var base='#334155';var diffs=['#4a5b73','#232d40','#5c6b82'];c={count:counts[k],base:base,diff:diffs[k],odd:k*3%counts[k]};}
+      else if(type==='oddout'){var counts=[8,12,16];var base='#334155';var diffs=['#4a5b73','#232d40','#5c6b82'];c={count:counts[k],base:base,diff:diffs[k],odd:k*3%counts[k]};}
       else if(type==='simon'){var sims=[{cmd:'Simon 说：点按钮',action:'点我',follow:true},{cmd:'Simon 说：别点按钮',action:'点我',follow:false},{cmd:'点按钮',action:'点我',follow:false}];var sm=sims[k];c={cmd:sm.cmd,action:sm.action,follow:sm.follow,sec:4+k*2};prompt=sm.cmd;}
       else if(type==='balance'){var forces=[2,4,6];var secs=[4,6,8];c={force:forces[k],sec:secs[k]};}
       else if(type==='shell'){var swaps=[3,6,10];c={ball:k%3,swaps:swaps[k]};}
       else if(type==='opposite'){var pool2=detShuf(COLOR_POOL,k+50);var ask=pool2[0];var opts=detShuf(COLOR_POOL,k+99);var ai=0;for(var oi=0;oi<opts.length;oi++){if(opts[oi].h!==ask.h){ai=oi;break;}}c={askName:ask.n,askColor:ask.h,options:opts,answerIdx:ai};}
       else if(type==='truefalse'){var tf=TF_STMTS[k];c={statement:tf.s,answer:tf.a};}
       else if(type==='sort'){c={items:SORT_ITEMS[k]};}
-      else if(type==='precise'){var sizes=[16,10,6];var decoys=[3,6,10];c={size:sizes[k],x:50+k*60,y:30+k*40,decoys:decoys[k]};}
+      else if(type==='precise'){var sizes=[14,8,5];var decoys=[6,10,16];c={size:sizes[k],x:50+k*60,y:30+k*40,decoys:decoys[k]};}
       else if(type==='guess'){var maxs=[10,20,50];var targets=[3+k*3,7+k*5,13+k*11];c={max:maxs[k],target:1+((k*7+3)%maxs[k])};}
       else if(type==='pairs'){var pd=PAIRS_DATA[k];c={pairs:pd.pairs,cols:pd.cols};}
-      else if(type==='stabilize'){var drifts=[2,4,6];var secs=[5,8,10];c={drift:drifts[k],sec:secs[k]};}
+      else if(type==='stabilize'){var drifts=[3,6,9];var secs=[5,8,10];c={drift:drifts[k],sec:secs[k]};}
       else if(type==='wordfind'){var wg=WORD_GRID[k];c={grid:wg.grid,word:wg.word,wordIdx:wg.wordIdx,cols:wg.cols};prompt='找出「'+wg.word+'」';}
-      else if(type==='rhythm'){var intervals=[800,600,400];var counts=[3,5,8];c={interval:intervals[k],count:counts[k]};}
-      else if(type==='countfast'){var syms=['○','□','△'];var total=4+k*2;var shapes=[];var rng=detShuf([0,1,2,0,1,2,0,1,2],k*5+3);for(var j=0;j<total;j++)shapes.push(syms[rng[j%rng.length]]);var ask=syms[k%3];var target=0;shapes.forEach(function(s){if(s===ask)target++;});c={shapes:shapes,target:target,total:total};prompt='几个'+ask+'？';}
+      else if(type==='rhythm'){var intervals=[700,520,380];var counts=[4,6,9];c={interval:intervals[k],count:counts[k]};}
+      else if(type==='countfast'){var syms=['○','□','△'];var total=5+k*3;var shapes=[];var rng=detShuf([0,1,2,0,1,2,0,1,2],k*5+3);for(var j=0;j<total;j++)shapes.push(syms[rng[j%rng.length]]);var ask=syms[k%3];var target=0;shapes.forEach(function(s){if(s===ask)target++;});c={shapes:shapes,target:target,total:total};prompt='几个'+ask+'？';}
       else if(type==='colormix'){var targets=['#dc2626','#22c55e','#0ea5e9'];c={target:targets[k]};}
       else if(type==='path'){var pt=PATHS[k];c={rows:pt.rows,cols:pt.cols,path:pt.path};}
       else if(type==='decode'){var words=['abc','def','ghi'];var encoded=words[k].split('').map(function(ch){return DECODE_MAP[ch]}).join('');c={encoded:encoded,answer:words[k]};prompt='解码：'+encoded+'（a=1,b=2…）';}
-      else if(type==='chain'){var counts=[3,4,6];var order=detShuf([0,1,2,3,4,5,6].slice(0,counts[k]),k*17+3);c={count:counts[k],order:order,showMs:600+k*200};}
-      else if(type==='weight'){var targets=[1,3,5];c={target:targets[k]};}
+      else if(type==='chain'){var counts=[3,4,6];var order=detShuf([0,1,2,3,4,5,6].slice(0,counts[k]),k*17+3);c={count:counts[k],order:order,showMs:420+k*160};}
+      else if(type==='weight'){var targets=[2,4,7];c={target:targets[k]};}
       else if(type==='blind'){var positions=[[150,120],[80,40],[180,160]];c={gx:positions[k][0],gy:positions[k][1]};}
       /* 修饰器：按关卡序号取模分配，同类型3关获得3个不同修饰器 */
       var mod=MODS[(i+Math.floor(i/50))%MODS.length];
+      if(mod==='none'){
+        var flipOK=['buttons','reverse','math','mirror','toggle','truefalse','guess','oddout','color','colormix','pattern','sort','sequence','memory','count','countfast','simon','wordfind','fill','pairs','opposite','weight','chain'];
+        if(i%2===0) mod=(flipOK.indexOf(type)>=0)?'flipx':'drift'; else mod=(i%4===1?'shake':'drift');
+      }
       /* 不兼容修正 */
       if(mod==='timed'&&(type==='countdown'||type==='wait'||type==='simon'||type==='reaction'||type==='rhythm'||type==='hold'||type==='holdRelease'||type==='double')) mod='contrast';
       if(mod==='moving'&&(type==='drag'||type==='avoid'||type==='spin'||type==='slider'||type==='roulette'||type==='hold'||type==='holdRelease'||type==='double'||type==='stabilize'||type==='shell'||type==='balance'||type==='blind')) mod='sepia';
@@ -470,7 +479,22 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
   function lvlHeader(area,prompt){ var d=document.createElement('div'); d.className='prompt'; d.textContent=prompt; area.appendChild(d); }
   function shakeArea(){ var a=$('level-area'); a.classList.remove('shake'); void a.offsetWidth; a.classList.add('shake'); }
 
-  var busy=false;
+  var busy=false, gateArmed=false;
+  function showGate(msg){
+    clearTimers();
+    var ov=document.createElement('div'); ov.className='trap-ov';
+    var box=document.createElement('div'); box.className='trap-box';
+    var t=document.createElement('div'); t.className='trap-t'; t.textContent='真的要过关吗？';
+    var sub=document.createElement('div'); sub.className='trap-s'; sub.textContent='点了「确定」它就会跑。想清楚。';
+    var names=['抓不到我','再试试？','嘿嘿','就这？','慢一点'];
+    var ok=mkBtn('确定','btn danger',function(){ setFeed('它不让你点。',''); });
+    function runAway(){ ok.style.position='absolute'; ok.style.left=(8+Math.random()*58)+'%'; ok.style.top=(8+Math.random()*62)+'%'; ok.style.width='auto'; ok.textContent=names[Math.floor(Math.random()*names.length)]; }
+    ok.addEventListener('pointerenter',runAway);
+    ok.addEventListener('pointerdown',runAway);
+    var no=mkBtn('取消','btn ghost',function(){ if(ov.parentNode) ov.parentNode.removeChild(ov); pass(msg); });
+    box.appendChild(t); box.appendChild(sub); box.appendChild(ok); box.appendChild(no); ov.appendChild(box);
+    document.body.appendChild(ov);
+  }
   function fail(msg){
     if(busy) return;
     busy=true;
@@ -487,6 +511,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
 
   function pass(msg){
     if(busy) return;
+    if(gateArmed){ gateArmed=false; showGate(msg); return; }
     busy=true;
     setFeed(msg||'','good');
     trackTimer(setTimeout(function(){
@@ -547,6 +572,11 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       area.style.filter='contrast(2) saturate(1.5)';
     }else if(mod==='sepia'){
       area.style.filter='sepia(0.7) hue-rotate(-30deg)';
+    }else if(mod==='drift'){
+      var dOff=0,dDir=1;
+      var dIv=setInterval(function(){ dOff+=dDir*7; if(dOff>20||dOff<-20) dDir=-dDir; area.style.transform='translateX('+dOff+'px)'; },240); trackTimer(dIv);
+    }else if(mod==='flipx'){
+      area.style.transform='scaleX(-1)';
     }else if(mod==='rotate'){
       area.style.animation='none'; void area.offsetWidth; area.style.transform='rotate(2deg)'; area.style.transition='transform 0.8s ease-in-out';
       var riv=setInterval(function(){ var ang=(Math.random()-0.5)*8; area.style.transform='rotate('+ang+'deg)'; },900); trackTimer(riv);
@@ -559,6 +589,8 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
   function buildLevel(){
     clearTimers();
     busy=false;
+    gateArmed=(level>=8&&level%7===3);
+    var oldGate=document.querySelector('.trap-ov'); if(oldGate&&oldGate.parentNode) oldGate.parentNode.removeChild(oldGate);
     setFeed('');
     var L=LEVELS[level];
     $('game-progress').textContent='第 '+(level+1)+' / '+TOTAL+' 关';
@@ -660,7 +692,9 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     trackTimer(iv);
   }
   function buildHidden(area,c){
-    for(var i=0;i<c.fakes;i++) area.appendChild(mkBtn('钥匙','fake-key',function(){ fail('假的～'); }));
+    var frow=document.createElement('div'); frow.className='row wrap-tight'; frow.style.maxWidth='100%';
+    for(var i=0;i<c.fakes;i++) frow.appendChild(mkBtn('钥匙','fake-key',function(){ fail('假的～'); }));
+    area.appendChild(frow);
     var wrap=document.createElement('div'); wrap.style.cssText='position:relative;width:100%;height:48px';
     var real=document.createElement('button'); real.className='real-key'; real.style.cssText='position:absolute;left:2px;top:0;opacity:'+c.opacity+';width:44px;height:44px;cursor:pointer;border:0;background:transparent;padding:0';
     real.innerHTML='<svg style="width:34px;height:18px;display:block;margin:13px auto" viewBox="0 0 60 30"><circle cx="12" cy="15" r="10" fill="#fde68a" stroke="#d97706" stroke-width="2"/><rect x="20" y="11" width="36" height="8" fill="#fde68a"/><circle cx="12" cy="15" r="4" fill="#0f1226"/></svg>';
@@ -775,7 +809,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     area.appendChild(row);
   }
   function buildCount(area,c){
-    var canvas=document.createElement('div'); canvas.style.cssText='font-size:30px;letter-spacing:8px;text-align:center;color:var(--ink)'; canvas.textContent=c.shapes.join(' '); area.appendChild(canvas);
+    var canvas=document.createElement('div'); canvas.style.cssText='font-size:26px;letter-spacing:4px;line-height:1.8;word-break:break-word;max-width:100%;text-align:center;color:var(--ink)'; canvas.textContent=c.shapes.join(' '); area.appendChild(canvas);
     var row=document.createElement('div'); row.className='row wrap-tight';
     for(var n=0;n<=c.total;n++){ (function(num){ row.appendChild(mkBtn(String(num),'num-btn',function(){ if(num===c.target) pass('对！'); else fail('数错了。'); })); })(n); }
     area.appendChild(row);
@@ -802,7 +836,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     knob.addEventListener('pointerdown',function(e){ dragging=true; knob.setPointerCapture(e.pointerId); startA=ang(e); startAngle=angle; });
     knob.addEventListener('pointermove',function(e){ if(!dragging)return; angle=startAngle+ang(e)-startA; knob.style.transform='rotate('+angle+'deg)'; read.textContent=Math.round(((angle%360)+360)%360)+'°'; });
     knob.addEventListener('pointerup',function(){ dragging=false; });
-    area.appendChild(mkBtn('确认','btn',function(){ var a=((angle%360)+360)%360; if(Math.abs(a-c.target)<=15||Math.abs(a-c.target+360)<=15||Math.abs(a-c.target-360)<=15) pass('对！'); else fail('角度不对。'); }));
+    area.appendChild(mkBtn('确认','btn',function(){ var a=((angle%360)+360)%360; if(Math.abs(a-c.target)<=12||Math.abs(a-c.target+360)<=12||Math.abs(a-c.target-360)<=12) pass('对！'); else fail('角度不对。'); }));
   }
   function buildTiming(area,c){
     var num=document.createElement('div'); num.className='countdown'; num.textContent=String(c.from); area.appendChild(num);
@@ -927,15 +961,15 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       d.style.left=dx+'px'; d.style.top=dy+'px'; d.addEventListener('click',function(){ fail('不是这个！'); }); wrap.appendChild(d); }
   }
   function buildGuess(area,c){
-    var info=document.createElement('div'); info.className='tap-count'; info.textContent='猜 1-'+c.max+'（最多 7 次）'; area.appendChild(info);
+    var info=document.createElement('div'); info.className='tap-count'; info.textContent='猜 1-'+c.max+'（最多 5 次）'; area.appendChild(info);
     var inp=document.createElement('input'); inp.type='number'; inp.className='game-input'; inp.placeholder='?'; area.appendChild(inp);
     var tries=0;
     area.appendChild(mkBtn('猜','btn',function(){ var v=parseInt(inp.value,10);
       if(!isFinite(v)){ info.textContent='先输入一个数字。'; return; }
       if(v===c.target){ pass('猜对了！'); return; }
       tries++; inp.value='';
-      info.textContent=(v<c.target?'太小了':'太大了')+'（第 '+tries+' / 7 次）';
-      if(tries>=7) fail('次数用完了。');
+      info.textContent=(v<c.target?'太小了':'太大了')+'（第 '+tries+' / 5 次）';
+      if(tries>=5) fail('次数用完了。');
     }));
   }
   function buildPairs(area,c){
@@ -976,7 +1010,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     area.appendChild(mkBtn('点','btn',function(){ if(done)return; taps++; if(taps>=c.count){ done=true; clearInterval(beatIv); pass('合拍！'); } }));
   }
   function buildCountFast(area,c){
-    var show=document.createElement('div'); show.style.cssText='font-size:40px;text-align:center;color:var(--ink);'; show.textContent=c.shapes.join(' '); area.appendChild(show);
+    var show=document.createElement('div'); show.style.cssText='font-size:28px;line-height:1.8;word-break:break-word;max-width:100%;text-align:center;color:var(--ink);'; show.textContent=c.shapes.join(' '); area.appendChild(show);
     var revealed=true;
     trackTimer(setTimeout(function(){ revealed=false; show.textContent='几个？'; show.style.color='var(--muted)'; },1200));
     var row=document.createElement('div'); row.className='row wrap-tight';
