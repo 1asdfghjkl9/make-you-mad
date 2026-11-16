@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Make You Mad · 整蛊大冒险 275 关</title>
+<title>Make You Mad · 整蛊大冒险 500 关</title>
 <meta name="theme-color" content="#0f1226">
-<meta name="description" content="Make You Mad · 275 关整蛊解谜游戏，55 种玩法 × 15 种修饰器 · 含假崩溃。">
+<meta name="description" content="Make You Mad · 500 关整蛊解谜游戏，55 种玩法 × 15 种修饰器 · 含假崩溃。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='34' r='24' fill='%23fbbf24'/%3E%3Ccircle cx='24' cy='30' r='4' fill='%231e293b'/%3E%3Ccircle cx='40' cy='30' r='4' fill='%231e293b'/%3E%3Cpath d='M22 44 Q32 38 42 44' stroke='%231e293b' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
@@ -211,7 +211,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
         <button class="btn ghost" id="btn-cheat">兑换</button>
       </div>
       <span class="cheat-badge" id="cheat-badge">🔓 破解模式</span>
-      <p class="tip">55 种玩法 × 15 种修饰器 · 275 关 · 打完一关解锁下一关 · 错一关回到最近存档点 · 有些存档点是假的 · 有些崩溃也是假的</p>
+      <p class="tip">55 种玩法 × 15 种修饰器 · 500 关 · 打完一关解锁下一关 · 错一关回到最近存档点 · 有些存档点是假的 · 有些崩溃也是假的</p>
     </section>
 
     <section class="scene" id="scene-privacy">
@@ -234,7 +234,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     <section class="scene" id="scene-game">
       <button class="sound-toggle" id="btn-sound">🔊</button>
       <button class="exit-btn" id="btn-exit">退出</button>
-      <div class="progress" id="game-progress">第 1 / 275 关</div>
+      <div class="progress" id="game-progress">第 1 / 500 关</div>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
       <div class="cp" id="game-cp"></div>
       <div class="level-area" id="level-area"></div>
@@ -243,7 +243,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
 
     <section class="scene" id="scene-ending">
       <div class="end-card">
-        <p class="big">275 关全通！</p>
+        <p class="big">500 关全通！</p>
         <p class="lead">你是真正的整蛊之神。<br>但这只是因为还没出DLC。</p>
         <div style="height:18px"></div>
         <div class="restart-row">
@@ -320,7 +320,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
   function trackTimer(id){ timers.push(id); return id; }
   function clearTimers(){ for(var i=0;i<timers.length;i++){ clearInterval(timers[i]); clearTimeout(timers[i]); } timers=[]; }
 
-  var TOTAL=275;
+  var TOTAL=500;
   function loadCp(){ try{ return Math.max(0,Math.min(TOTAL,parseInt(localStorage.getItem('mym-cp'))||0)); }catch(e){ return 0; } }
   function saveCp(v){ try{ localStorage.setItem('mym-cp',String(v)); }catch(e){} }
   function loadMax(){ try{ return Math.max(0,Math.min(TOTAL,parseInt(localStorage.getItem('mym-max'))||0)); }catch(e){ return 0; } }
@@ -329,7 +329,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
   var cheatMode=(function(){ try{ return localStorage.getItem('mym-cheat')==='1'; }catch(e){ return false; } })();
   function saveCheat(v){ try{ localStorage.setItem('mym-cheat', v?'1':'0'); }catch(e){} }
 
-  /* ===== 确定性生成 275 关 / 55 种玩法（前 50 种各 5 关 + 后 5 种各 5 关） ===== */
+  /* ===== 确定性生成 500 关 / 55 种玩法（前 50 种各 5 关 + 后 5 种各 5 关） ===== */
   var LEVELS=[];
   function detShuf(a,seed){a=a.slice();var s=((seed*2654435761)%2147483647+2147483647)%2147483647;for(var i=a.length-1;i>0;i--){s=(s*1103515245+12345)%2147483647;var j=s%(i+1);var t=a[i];a[i]=a[j];a[j]=t;}return a;}
   (function generateAll(){
@@ -399,88 +399,140 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     var DIRS=['→','←','↑','↓','↗','↘','↖','↙'];
     var SHAPES=['egg','circle','box'];
     var WORD=['溜','逃','跑','闪','撤','走','遁','离'];
-    var BAITS=[['通关','奖励'],['跳过','加速'],['放弃','退出'],['继续','开始'],['领取','结束'],['试试','点我']];
+    var BAITS=[['通关','奖励'],['跳过','加速'],['放弃','退出'],['继续','开始'],['领取','结束'],['试试','点我'],['返回','确认'],['好的','不要'],['完成','取消'],['下一步','关闭']];
     var COLOR_VERB=['点X色的那个。','找出X色的。','X色在哪？','选X色的。','认出X色。','挑X色的。'];
-    var TYPE_WORDS=["你好","游戏","放弃","不对","继续","结束","开始","再来"];
+    var TYPE_WORDS=["你好","游戏","放弃","不对","继续","结束","开始","再来","加油","算了"];
     var REGIONS=['red','gold','green','blue'];
-    var EQ=[["1+1","2"],["2+3","5"],["5-2","3"],["4×2","8"],["9÷3","3"],["7-4","3"]];
+    var EQ=[["1+1","2"],["2+3","5"],["5-2","3"],["4×2","8"],["9÷3","3"],["7-4","3"],["6+7","13"],["12-5","7"],["3×6","18"],["20÷5","4"]];
     var PATTERNS=[
       {seq:['△','○','△','○'],opt:['△','○','□'],correct:'△'},
       {seq:['○','○','□','○','○'],opt:['○','□','△'],correct:'□'},
       {seq:['△','△','○','△','△'],opt:['△','○','□'],correct:'○'},
       {seq:['□','○','△','□','○','△','□'],opt:['○','△','□'],correct:'○'},
-      {seq:['△','○','□','△','○','□'],opt:['△','○','□'],correct:'△'}
+      {seq:['△','○','□','△','○','□'],opt:['△','○','□'],correct:'△'},
+      {seq:['○','□','□','○','□','□'],opt:['○','□','△'],correct:'□'},
+      {seq:['△','○','△','○','△','○'],opt:['△','○','□'],correct:'△'},
+      {seq:['□','△','○','□','△','○','□','△'],opt:['○','△','□'],correct:'○'},
+      {seq:['○','△','○','△','○','△','○'],opt:['○','△','□'],correct:'○'},
+      {seq:['△','□','△','□','△'],opt:['△','□','○'],correct:'△'}
     ];
-    var TOGGLE_TARGETS=['101','110','011'];
+    var TOGGLE_TARGETS=['101','110','011','1010','0101'];
     var WHISPERS=[
       [{w:'仔细阅读这段话，'},{w:'注意每个字，'},{w:'也许'},{w:'答案',tiny:true},{w:'就在其中。'}],
       [{w:'这里有一段普通文字，'},{w:'看起来没什么，'},{w:'但'},{w:'秘密',tiny:true},{w:'藏在里面。'}],
       [{w:'请慢慢看，'},{w:'不要急，'},{w:'那个'},{w:'词',tiny:true},{w:'你能找到吗？'}],
       [{w:'文字的海洋里，'},{w:'有一个字，'},{w:'非常小，'},{w:'找到',tiny:true},{w:'它就赢了。'}],
-      [{w:'别被大字迷惑，'},{w:'真相往往，'},{w:'藏在'},{w:'微小',tiny:true},{w:'之处。'}]
+      [{w:'别被大字迷惑，'},{w:'真相往往，'},{w:'藏在'},{w:'微小',tiny:true},{w:'之处。'}],
+      [{w:'一眼扫过，'},{w:'什么都没发现？'},{w:'再看看，'},{w:'隐',tiny:true},{w:'在这里。'}],
+      [{w:'这段话里，'},{w:'藏着一个关键字，'},{w:'它太小了，'},{w:'藏',tiny:true},{w:'你看到了吗？'}],
+      [{w:'注意每一个字，'},{w:'包括标点，'},{w:'等等，'},{w:'找',tiny:true},{w:'到了吗？'}],
+      [{w:'大段文字中，'},{w:'有个字几乎看不见，'},{w:'它是'},{w:'密',tiny:true},{w:'码。'}],
+      [{w:'阅读理解：'},{w:'找到隐藏的字。'},{w:'它'},{w:'在',tiny:true},{w:'这里某处。'}]
     ];
     var TF_STMTS=[
       {s:'1+1=3',a:false},{s:'太阳从西边升起。',a:false},{s:'水在0度会结冰。',a:true},
-      {s:'地球是方的。',a:false},{s:'光速比声速快。',a:true}
+      {s:'地球是方的。',a:false},{s:'光速比声速快。',a:true},
+      {s:'月亮自己发光。',a:false},{s:'一年有12个月。',a:true},{s:'铁比棉花重(同体积)。',a:true},
+      {s:'鲨鱼是哺乳动物。',a:false},{s:'0是正数。',a:false}
     ];
-    var COLOR_POOL=[{n:'红',h:'#dc2626'},{n:'绿',h:'#22c55e'},{n:'蓝',h:'#0ea5e9'},{n:'紫',h:'#a855f7'},{n:'橙',h:'#f97316'}];
+    var COLOR_POOL=[{n:'红',h:'#dc2626'},{n:'绿',h:'#22c55e'},{n:'蓝',h:'#0ea5e9'},{n:'紫',h:'#a855f7'},{n:'橙',h:'#f97316'},{n:'黄',h:'#eab308'},{n:'粉',h:'#ec4899'}];
     var DECODE_MAP={a:'1',b:'2',c:'3',d:'4',e:'5',f:'6',g:'7',h:'8',i:'9'};
-    var SORT_ITEMS=[[3,1,4,2],[5,2,8,1],[6,3,9,2],[7,3,1,8,2],[4,9,2,6,1]];
+    var SORT_ITEMS=[[3,1,4,2],[5,2,8,1],[6,3,9,2],[7,3,1,8,2],[4,9,2,6,1],[8,2,5,1,9],[3,7,1,4],[10,4,7,2,8,1],[6,1,8,3],[9,3,6,2,7,1]];
     var WORD_GRID=[
       {grid:['你','好','游','戏','放','弃','结','束','继'],word:'游戏',wordIdx:[2,3],cols:3},
       {grid:['开','心','玩','耍','快','乐','高','兴','喜'],word:'快乐',wordIdx:[4,5],cols:3},
       {grid:['大','小','多','少','上','下','左','右','中'],word:'上下',wordIdx:[4,5],cols:3},
       {grid:['春','夏','秋','冬','东','西','南','北','中'],word:'秋冬',wordIdx:[2,3],cols:3},
-      {grid:['金','木','水','火','土','风','雷','电','雨'],word:'水火',wordIdx:[2,3],cols:3}
+      {grid:['金','木','水','火','土','风','雷','电','雨'],word:'水火',wordIdx:[2,3],cols:3},
+      {grid:['红','黄','蓝','绿','白','黑','紫','粉','灰'],word:'黑白',wordIdx:[4,5],cols:3},
+      {grid:['日','月','星','辰','江','河','湖','海','山'],word:'日月',wordIdx:[0,1],cols:3},
+      {grid:['风','雨','雷','电','冰','雪','霜','露','云'],word:'风雨',wordIdx:[0,1],cols:3},
+      {grid:['一','二','三','四','五','六','七','八','九'],word:'五六',wordIdx:[4,5],cols:3},
+      {grid:['东','南','西','北','前','后','左','右','中'],word:'前后',wordIdx:[4,5],cols:3}
     ];
     var PATHS=[
       {rows:3,cols:3,path:[[0,0],[0,1],[1,1],[1,2],[2,2]]},
       {rows:3,cols:4,path:[[0,0],[1,0],[1,1],[1,2],[0,2],[0,3]]},
       {rows:4,cols:3,path:[[0,0],[1,0],[2,0],[2,1],[3,1],[3,2]]},
       {rows:4,cols:4,path:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3]]},
-      {rows:4,cols:4,path:[[0,0],[1,0],[1,1],[2,1],[2,2],[3,2],[3,3]]}
+      {rows:4,cols:4,path:[[0,0],[1,0],[1,1],[2,1],[2,2],[3,2],[3,3]]},
+      {rows:3,cols:4,path:[[0,0],[0,1],[0,2],[1,2],[1,3],[2,3]]},
+      {rows:4,cols:4,path:[[0,0],[0,1],[0,2],[0,3],[1,3],[2,3],[3,3]]},
+      {rows:4,cols:3,path:[[0,0],[1,0],[1,1],[2,1],[2,2],[3,2]]},
+      {rows:3,cols:3,path:[[0,0],[1,0],[2,0],[2,1],[2,2]]},
+      {rows:4,cols:4,path:[[0,0],[1,0],[2,0],[3,0],[3,1],[3,2],[3,3]]}
     ];
     var PAIRS_DATA=[
       {pairs:['★','♥','♣'],cols:3},
       {pairs:['😊','😎','😍'],cols:3},
       {pairs:['♪','♫','♬'],cols:3},
       {pairs:['★','♥','♣','♦'],cols:4},
-      {pairs:['😊','😎','😍','🤔'],cols:4}
+      {pairs:['😊','😎','😍','🤔'],cols:4},
+      {pairs:['☀','☁','☂'],cols:3},
+      {pairs:['◆','◇','▲','△'],cols:4},
+      {pairs:['🐱','🐶','🐰'],cols:3},
+      {pairs:['🔴','🔵','🟢','🟡'],cols:4},
+      {pairs:['♠','♣','♥','♦','★'],cols:5}
     ];
     var MAZES=[
       {grid:['S. ','.G ','.  '],start:[0,0],goal:[1,1],holes:[[2,0]],cols:3,rows:3},
       {grid:['S..','.#.','.G.'],start:[0,0],goal:[2,1],holes:[[1,1]],cols:3,rows:3},
       {grid:['S...','.##.','.G..','....'],start:[0,0],goal:[2,1],holes:[[1,1],[1,2]],cols:4,rows:4},
       {grid:['S....','..#..','.G#..','.....'],start:[0,0],goal:[2,1],holes:[[1,2],[2,2]],cols:5,rows:4},
-      {grid:['S..','.#.','.G.','.#.'],start:[0,0],goal:[2,1],holes:[[1,1],[3,1]],cols:3,rows:4}
+      {grid:['S..','.#.','.G.','.#.'],start:[0,0],goal:[2,1],holes:[[1,1],[3,1]],cols:3,rows:4},
+      {grid:['S...','...G','.#..','....'],start:[0,0],goal:[1,3],holes:[[2,1]],cols:4,rows:4},
+      {grid:['S....','....#','..#..','.G...'],start:[0,0],goal:[3,1],holes:[[1,4],[2,2]],cols:5,rows:4},
+      {grid:['S..','.G.','.#.'],start:[0,0],goal:[1,1],holes:[[2,1]],cols:3,rows:3},
+      {grid:['S....','..##.','...G.','.....'],start:[0,0],goal:[2,4],holes:[[1,2],[1,3]],cols:5,rows:4},
+      {grid:['S....','....#','#..G.','...#.'],start:[0,0],goal:[2,3],holes:[[1,4],[2,0],[3,3]],cols:5,rows:4}
     ];
     var TRACES=[
       {pts:[[20,20],[80,20],[80,80],[20,80],[20,50]],tol:25},
       {pts:[[30,20],[30,80],[70,80],[70,20],[50,20]],tol:22},
       {pts:[[20,30],[60,30],[60,60],[30,60],[30,90],[80,90]],tol:20},
       {pts:[[15,50],[40,20],[65,50],[40,80],[85,50]],tol:18},
-      {pts:[[20,20],[80,20],[50,50],[80,80],[20,80]],tol:20}
+      {pts:[[20,20],[80,20],[50,50],[80,80],[20,80]],tol:20},
+      {pts:[[20,80],[20,20],[80,20],[80,80],[50,50]],tol:22},
+      {pts:[[30,15],[70,15],[70,45],[30,45],[30,75],[70,75],[70,105],[30,105]],tol:18},
+      {pts:[[50,20],[80,50],[50,80],[20,50],[50,20]],tol:20},
+      {pts:[[20,20],[60,20],[60,60],[20,60],[20,100],[80,100],[80,40]],tol:16},
+      {pts:[[15,30],[45,15],[75,30],[75,60],[45,75],[15,60]],tol:18}
     ];
     var SLIDE_PUZZLES=[
       {size:3,tiles:[1,2,3,4,5,6,7,0,8]},
       {size:3,tiles:[2,1,3,4,5,6,7,8,0]},
       {size:3,tiles:[1,2,3,4,0,5,7,8,6]},
       {size:3,tiles:[3,1,2,4,5,6,0,7,8]},
-      {size:3,tiles:[1,2,3,0,4,5,7,8,6]}
+      {size:3,tiles:[1,2,3,0,4,5,7,8,6]},
+      {size:3,tiles:[2,3,1,5,6,4,8,0,7]},
+      {size:3,tiles:[1,3,2,4,6,5,7,0,8]},
+      {size:3,tiles:[3,2,1,6,5,4,0,8,7]},
+      {size:3,tiles:[2,1,3,5,4,6,0,8,7]},
+      {size:3,tiles:[1,2,0,4,5,3,7,8,6]}
     ];
     var LOCKS=[
       {target:45,tol:5,wob:8},
       {target:120,tol:5,wob:10},
       {target:200,tol:4,wob:12},
       {target:300,tol:3,wob:14},
-      {target:90,tol:5,wob:9}
+      {target:90,tol:5,wob:9},
+      {target:160,tol:4,wob:11},
+      {target:250,tol:3,wob:15},
+      {target:60,tol:5,wob:8},
+      {target:180,tol:4,wob:13},
+      {target:330,tol:3,wob:16}
     ];
     var STACKS=[
       {count:3,wob:3,tol:18},
       {count:4,wob:4,tol:16},
       {count:5,wob:5,tol:14},
       {count:6,wob:6,tol:12},
-      {count:7,wob:7,tol:11}
+      {count:7,wob:7,tol:11},
+      {count:5,wob:6,tol:13},
+      {count:8,wob:8,tol:10},
+      {count:4,wob:5,tol:15},
+      {count:6,wob:7,tol:11},
+      {count:7,wob:8,tol:10}
     ];
     function makeColor(k){
       var bg=detShuf(COLOR_POOL,k).slice(0,4),labels=detShuf(COLOR_POOL,k+101).slice(0,4),items=[];
@@ -504,63 +556,63 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
     /* 10 种修饰器，按关卡序号唯一分配 */
     var MODS=['none','timed','moving','tiny','shake','flicker','hue','blur','invert','grayscale','rotate','pulse','contrast','sepia','reverse'];
     for(var i=0;i<TOTAL;i++){
-      var type=T[(i*3)%55]; /* step=3, gcd(3,55)=1, 同类型间隔55关 */
+      var type=T[(i*3)%55]; /* step=3, gcd(3,55)=1, 500关/55种≈9.1, 每种9-10关 */
       var k=cnt[type]; cnt[type]++;
       var pool=P[type];
       var prompt=pool[k%pool.length];
       var c={};
       /* ===== 类型 1-30 的参数（每种3个独特变体） ===== */
-      if(type==='buttons'){var counts=[4,10,7,14,9];var labels=[];for(var n=1;n<counts[k];n++)labels.push(String(n));labels.push(WORD[k%WORD.length]);c={labels:labels,correct:WORD[k%WORD.length],tiny:true};}
-      else if(type==='hold'){var ms=[4000,11000,18000,24000,16000];c={ms:ms[k],shape:SHAPES[k%3]};}
-      else if(type==='arrow'){var traps=[DIRS[0],DIRS[4],DIRS[2],DIRS[6],DIRS[3]];var cors=[DIRS[4],DIRS[6],'center',DIRS[0],'center'];c={trap:traps[k],correct:cors[k]};}
+      if(type==='buttons'){var counts=[4,10,7,14,9,12,6,16,11,8];var labels=[];for(var n=1;n<counts[k];n++)labels.push(String(n));labels.push(WORD[k%WORD.length]);c={labels:labels,correct:WORD[k%WORD.length],tiny:true};}
+      else if(type==='hold'){var ms=[4000,11000,18000,24000,16000,20000,7000,14000,22000,9000];c={ms:ms[k],shape:SHAPES[k%3]};}
+      else if(type==='arrow'){var traps=[DIRS[0],DIRS[4],DIRS[2],DIRS[6],DIRS[3],DIRS[7],DIRS[1],DIRS[5],DIRS[0],DIRS[2]];var cors=[DIRS[4],DIRS[6],'center',DIRS[0],'center',DIRS[5],DIRS[7],'center',DIRS[3],'center'];c={trap:traps[k],correct:cors[k]};}
       else if(type==='color'){var mc=makeColor(k);c={items:mc.items,correct:mc.correct};prompt=COLOR_VERB[k%COLOR_VERB.length].replace('X',mc.name);}
-      else if(type==='countdown'){var secs=[5,10,14,20,12];c={sec:secs[k]};}
-      else if(type==='hidden'){var fakes=[6,10,14,18,12];c={fakes:fakes[k],opacity:Math.max(0.02,0.055-k*0.012)};}
-      else if(type==='runaway'){var jumps=[300,170,90,60,130];var holds=[2500,4500,6500,8000,5500];c={jump:jumps[k],hold:holds[k]};}
-      else if(type==='wait'){var secs=[8,16,26,36,21];c={sec:secs[k],baits:BAITS[k%BAITS.length]};}
-      else if(type==='sequence'){var lens=[3,5,7,9,6];var order=detShuf([1,2,3,4,5,6,7,8,9].slice(0,lens[k]),k*13+5);c={order:order};prompt=pool[k%pool.length]+' '+order.join('-');}
-      else if(type==='multitap'){var counts=[12,28,45,65,36];c={count:counts[k]};}
-      else if(type==='drag'){var tols=[0.14,0.08,0.04,0.025,0.06];c={tolerance:tols[k],side:k%4};}
-      else if(type==='reverse'){var counts=[4,8,12,16,10];var labels=[];for(var n=1;n<counts[k];n++)labels.push('按'+n);labels.push('别按');c={labels:labels,correct:'别按',tiny:true};}
+      else if(type==='countdown'){var secs=[5,10,14,20,12,18,8,25,16,6];c={sec:secs[k]};}
+      else if(type==='hidden'){var fakes=[6,10,14,18,12,16,8,20,15,9];c={fakes:fakes[k],opacity:Math.max(0.01,0.06-k*0.006)};}
+      else if(type==='runaway'){var jumps=[300,170,90,60,130,80,200,50,110,70];var holds=[2500,4500,6500,8000,5500,7000,3500,9000,6000,4000];c={jump:jumps[k],hold:holds[k]};}
+      else if(type==='wait'){var secs=[8,16,26,36,21,30,12,40,24,18];c={sec:secs[k],baits:BAITS[k%BAITS.length]};}
+      else if(type==='sequence'){var lens=[3,5,7,9,6,8,4,10,7,5];var order=detShuf([1,2,3,4,5,6,7,8,9,10].slice(0,lens[k]),k*13+5);c={order:order};prompt=pool[k%pool.length]+' '+order.join('-');}
+      else if(type==='multitap'){var counts=[12,28,45,65,36,50,20,75,40,30];c={count:counts[k]};}
+      else if(type==='drag'){var tols=[0.14,0.08,0.04,0.025,0.06,0.03,0.1,0.02,0.05,0.07];c={tolerance:tols[k],side:k%4};}
+      else if(type==='reverse'){var counts=[4,8,12,16,10,14,6,18,11,9];var labels=[];for(var n=1;n<counts[k];n++)labels.push('按'+n);labels.push('别按');c={labels:labels,correct:'别按',tiny:true};}
       else if(type==='typing'){c={answer:TYPE_WORDS[k%TYPE_WORDS.length]};prompt='输入：'+TYPE_WORDS[k%TYPE_WORDS.length];}
-      else if(type==='slider'){var targets=[15,55,85,93,37];c={target:targets[k]};prompt='滑到 '+targets[k];}
-      else if(type==='math'){var eqs=[["3+4","7"],["6×3","18"],["15-8","7"],["9×7","63"],["24÷4","6"]];var wrong=['1','9','4','0','12','20','2','5','8','10','3','15','14','64'];var wl=detShuf(wrong,k*3+1).slice(0,4);wl.push(eqs[k][1]);c={labels:wl,correct:eqs[k][1],tiny:true};prompt=eqs[k][0]+' = ?';}
-      else if(type==='mirror'){var counts=[4,6,8,10,7];c={count:counts[k],target:counts[k]-(k+1),hint:k+1};prompt=pool[k%pool.length]+' 点第 '+(k+1)+' 个';}
-      else if(type==='double'){var secs=[2000,3500,6000,8500,4800];c={sec:secs[k]};prompt='两边各按满 '+(secs[k]*0.6/1000).toFixed(1)+' 秒（可先后）';}
-      else if(type==='holdRelease'){var secs=[2,5,8,13,6];c={sec:secs[k]};prompt='按住，'+secs[k]+'秒后松手';}
-      else if(type==='reaction'){var mins=[2,4,6,8,5];var maxs=[5,7,10,14,9];c={min:mins[k],max:maxs[k]};}
-      else if(type==='memory'){var lens=[4,6,8,10,7];var seq=detShuf([1,2,3,4,5,6,7,8,9,10].slice(0,lens[k]),k*11+7);c={seq:seq,showMs:Math.max(1200,2000-k*200)};prompt='记住这 '+lens[k]+' 个';}
+      else if(type==='slider'){var targets=[15,55,85,93,37,67,22,78,44,91];c={target:targets[k]};prompt='滑到 '+targets[k];}
+      else if(type==='math'){var eqs=[["3+4","7"],["6×3","18"],["15-8","7"],["9×7","63"],["24÷4","6"],["7+8","15"],["12×5","60"],["20-13","7"],["8×9","72"],["36÷6","6"]];var wrong=['1','9','4','0','12','20','2','5','8','10','3','15','14','64','16','55','6','14','70','5'];var wl=detShuf(wrong,k*3+1).slice(0,4);wl.push(eqs[k][1]);c={labels:wl,correct:eqs[k][1],tiny:true};prompt=eqs[k][0]+' = ?';}
+      else if(type==='mirror'){var counts=[4,6,8,10,7,9,5,12,8,6];c={count:counts[k],target:counts[k]-(k+1),hint:k+1};prompt=pool[k%pool.length]+' 点第 '+(k+1)+' 个';}
+      else if(type==='double'){var secs=[2000,3500,6000,8500,4800,7000,2500,9500,5500,3200];c={sec:secs[k]};prompt='两边各按满 '+(secs[k]*0.6/1000).toFixed(1)+' 秒（可先后）';}
+      else if(type==='holdRelease'){var secs=[2,5,8,13,6,10,4,15,7,3];c={sec:secs[k]};prompt='按住，'+secs[k]+'秒后松手';}
+      else if(type==='reaction'){var mins=[2,4,6,8,5,7,3,9,6,4];var maxs=[5,7,10,14,9,12,6,16,11,8];c={min:mins[k],max:maxs[k]};}
+      else if(type==='memory'){var lens=[4,6,8,10,7,9,5,12,8,6];var seq=detShuf([1,2,3,4,5,6,7,8,9,10,11,12].slice(0,lens[k]),k*11+7);c={seq:seq,showMs:Math.max(800,2000-k*150)};prompt='记住这 '+lens[k]+' 个';}
       else if(type==='count'){var mc2=makeCount(k);c=mc2;prompt='几个'+mc2.ask+'？';}
       else if(type==='pattern'){var pt=PATTERNS[k];c={seq:pt.seq,opt:pt.opt,correct:pt.correct};prompt=pt.seq.join(' ')+' ?';}
-      else if(type==='toggle'){var counts=[3,4,5,6,5];var masks=['101','1101','01101','101101','01010'];var sm0='';for(var q=0;q<counts[k];q++){sm0+=(((i*7+q*5)%3)===0?'1':'0');}c={count:counts[k],startMask:sm0,targetMask:masks[k]};prompt='调成 '+masks[k];}
-      else if(type==='spin'){var targets=[90,180,270,315,135];c={target:targets[k]};prompt='转到 '+targets[k]+'°';}
-      else if(type==='timing'){var ats=[3,6,9,12,7];var froms=[10,15,20,25,18];c={at:ats[k],from:froms[k]};prompt='倒计时到 '+ats[k]+' 时按';}
+      else if(type==='toggle'){var counts=[3,4,5,6,5,7,4,6,8,5];var masks=['101','1101','01101','101101','01010','1010101','0110','110011','10101101','10101'];var sm0='';for(var q=0;q<counts[k];q++){sm0+=(((i*7+q*5)%3)===0?'1':'0');}c={count:counts[k],startMask:sm0,targetMask:masks[k]};prompt='调成 '+masks[k];}
+      else if(type==='spin'){var targets=[90,180,270,315,135,225,45,200,340,115];c={target:targets[k]};prompt='转到 '+targets[k]+'°';}
+      else if(type==='timing'){var ats=[3,6,9,12,7,15,5,11,8,14];var froms=[10,15,20,25,18,30,12,22,16,28];c={at:ats[k],from:froms[k]};prompt='倒计时到 '+ats[k]+' 时按';}
       else if(type==='password'){c={answer:TYPE_WORDS[(k+3)%TYPE_WORDS.length]};prompt='密码提示：'+TYPE_WORDS[(k+3)%TYPE_WORDS.length];}
       else if(type==='avoid'){c={obs:makeObs(k)};}
       else if(type==='whisper'){c={text:WHISPERS[k]};}
-      else if(type==='fill'){var counts=[6,12,16,20,14];c={count:counts[k]};}
-      else if(type==='roulette'){var sps=[3,6,10,15,8];c={target:REGIONS[k%4],speed:sps[k]};prompt='停在 '+({red:'红',gold:'金',green:'绿',blue:'蓝'}[REGIONS[k%4]])+' 色';}
+      else if(type==='fill'){var counts=[6,12,16,20,14,18,10,24,15,8];c={count:counts[k]};}
+      else if(type==='roulette'){var sps=[3,6,10,15,8,12,5,18,9,7];c={target:REGIONS[k%4],speed:sps[k]};prompt='停在 '+({red:'红',gold:'金',green:'绿',blue:'蓝'}[REGIONS[k%4]])+' 色';}
       /* ===== 类型 31-50 的参数（5 个变体） ===== */
-      else if(type==='oddout'){var counts=[8,12,16,20,14];var base='#334155';var diffs=['#4a5b73','#232d40','#5c6b82','#3a4658','#4f5f78'];c={count:counts[k],base:base,diff:diffs[k],odd:k*3%counts[k]};}
-      else if(type==='simon'){var sims=[{cmd:'Simon 说：点按钮',action:'点我',follow:true},{cmd:'Simon 说：别点按钮',action:'点我',follow:false},{cmd:'点按钮',action:'点我',follow:false},{cmd:'Simon 说：等一下再点',action:'点我',follow:true},{cmd:'别点按钮',action:'点我',follow:false}];var sm=sims[k];c={cmd:sm.cmd,action:sm.action,follow:sm.follow,sec:4+k*2};prompt=sm.cmd;}
-      else if(type==='balance'){var forces=[2,4,6,8,5];var secs=[4,6,8,10,7];c={force:forces[k],sec:secs[k]};}
-      else if(type==='shell'){var swaps=[3,6,10,16,8];c={ball:k%3,swaps:swaps[k]};}
+      else if(type==='oddout'){var counts=[8,12,16,20,14,18,10,22,15,12];var base='#334155';var diffs=['#4a5b73','#232d40','#5c6b82','#3a4658','#4f5f78','#3d4a60','#516278','#2a3346','#475872','#394358'];c={count:counts[k],base:base,diff:diffs[k],odd:k*3%counts[k]};}
+      else if(type==='simon'){var sims=[{cmd:'Simon 说：点按钮',action:'点我',follow:true},{cmd:'Simon 说：别点按钮',action:'点我',follow:false},{cmd:'点按钮',action:'点我',follow:false},{cmd:'Simon 说：等一下再点',action:'点我',follow:true},{cmd:'别点按钮',action:'点我',follow:false},{cmd:'Simon 说：快速点三下',action:'点我',follow:true},{cmd:'Simon 说：什么都别做',action:'点我',follow:false},{cmd:'等三秒再点',action:'点我',follow:false},{cmd:'Simon 说：点按钮两次',action:'点我',follow:true},{cmd:'点我',action:'点我',follow:false}];var sm=sims[k];c={cmd:sm.cmd,action:sm.action,follow:sm.follow,sec:4+k*2};prompt=sm.cmd;}
+      else if(type==='balance'){var forces=[2,4,6,8,5,7,3,9,6,4];var secs=[4,6,8,10,7,9,5,12,8,6];c={force:forces[k],sec:secs[k]};}
+      else if(type==='shell'){var swaps=[3,6,10,16,8,12,5,20,14,9];c={ball:k%3,swaps:swaps[k]};}
       else if(type==='opposite'){var pool2=detShuf(COLOR_POOL,k+50);var ask=pool2[0];var opts=detShuf(COLOR_POOL,k+99);var ai=0;for(var oi=0;oi<opts.length;oi++){if(opts[oi].h!==ask.h){ai=oi;break;}}c={askName:ask.n,askColor:ask.h,options:opts,answerIdx:ai};}
       else if(type==='truefalse'){var tf=TF_STMTS[k];c={statement:tf.s,answer:tf.a};}
       else if(type==='sort'){c={items:SORT_ITEMS[k]};}
-      else if(type==='precise'){var sizes=[14,8,5,3,6];var decoys=[6,10,16,24,12];c={size:sizes[k],x:50+k*60,y:30+k*40,decoys:decoys[k]};}
-      else if(type==='guess'){var maxs=[10,20,50,45,35];c={max:maxs[k],target:1+((k*7+3)%maxs[k])};}
+      else if(type==='precise'){var sizes=[14,8,5,3,6,4,10,2,7,5];var decoys=[6,10,16,24,12,18,8,28,14,20];c={size:sizes[k],x:50+k*60,y:30+k*40,decoys:decoys[k]};}
+      else if(type==='guess'){var maxs=[10,20,50,45,35,60,15,80,40,25];c={max:maxs[k],target:1+((k*7+3)%maxs[k])};}
       else if(type==='pairs'){var pd=PAIRS_DATA[k];c={pairs:pd.pairs,cols:pd.cols};}
-      else if(type==='stabilize'){var drifts=[3,6,9,13,7];var secs=[5,8,10,12,9];c={drift:drifts[k],sec:secs[k]};}
+      else if(type==='stabilize'){var drifts=[3,6,9,13,7,10,5,15,8,11];var secs=[5,8,10,12,9,11,7,14,10,8];c={drift:drifts[k],sec:secs[k]};}
       else if(type==='wordfind'){var wg=WORD_GRID[k];c={grid:wg.grid,word:wg.word,wordIdx:wg.wordIdx,cols:wg.cols};prompt='找出「'+wg.word+'」';}
-      else if(type==='rhythm'){var intervals=[700,520,380,260,450];var counts=[4,6,9,13,7];c={interval:intervals[k],count:counts[k]};}
-      else if(type==='countfast'){var syms=['○','□','△'];var total=5+k*3;var shapes=[];var rng=detShuf([0,1,2,0,1,2,0,1,2],k*5+3);for(var j=0;j<total;j++)shapes.push(syms[rng[j%rng.length]]);var ask=syms[k%3];var target=0;shapes.forEach(function(s){if(s===ask)target++;});c={shapes:shapes,target:target,total:total};prompt='几个'+ask+'？';}
-      else if(type==='colormix'){var targets=['#dc2626','#22c55e','#0ea5e9','#a855f7','#f97316'];c={target:targets[k]};}
+      else if(type==='rhythm'){var intervals=[700,520,380,260,450,320,600,240,500,350];var counts=[4,6,9,13,7,11,5,15,8,10];c={interval:intervals[k],count:counts[k]};}
+      else if(type==='countfast'){var syms=['○','□','△'];var total=5+k*3;var shapes=[];var rng=detShuf([0,1,2,0,1,2,0,1,2,0,1,2,0,1,2],k*5+3);for(var j=0;j<total;j++)shapes.push(syms[rng[j%rng.length]]);var ask=syms[k%3];var target=0;shapes.forEach(function(s){if(s===ask)target++;});c={shapes:shapes,target:target,total:total};prompt='几个'+ask+'？';}
+      else if(type==='colormix'){var targets=['#dc2626','#22c55e','#0ea5e9','#a855f7','#f97316','#eab308','#ec4899','#14b8a6','#8b5cf6','#f43f5e'];c={target:targets[k]};}
       else if(type==='path'){var pt=PATHS[k];c={rows:pt.rows,cols:pt.cols,path:pt.path};}
       else if(type==='decode'){var words=['abc','def','ghi','cab','fig'];var encoded=words[k].split('').map(function(ch){return DECODE_MAP[ch]||'?';}).join('');c={encoded:encoded,answer:words[k]};prompt='解码：'+encoded+'（a=1,b=2…）';}
-      else if(type==='chain'){var counts=[3,4,6,8,5];var order=detShuf([0,1,2,3,4,5,6,7].slice(0,counts[k]),k*17+3);c={count:counts[k],order:order,showMs:Math.max(280,420-k*60)};}
-      else if(type==='weight'){var targets=[2,4,7,11,5];c={target:targets[k]};}
-      else if(type==='blind'){var positions=[[150,120],[80,40],[180,160],[50,170],[200,50]];c={gx:positions[k][0],gy:positions[k][1]};}
+      else if(type==='chain'){var counts=[3,4,6,8,5,7,4,9,6,5];var order=detShuf([0,1,2,3,4,5,6,7,8].slice(0,counts[k]),k*17+3);c={count:counts[k],order:order,showMs:Math.max(200,420-k*40)};}
+      else if(type==='weight'){var targets=[2,4,7,11,5,8,3,13,6,9];c={target:targets[k]};}
+      else if(type==='blind'){var positions=[[150,120],[80,40],[180,160],[50,170],[200,50],[120,80],[170,140],[40,100],[190,90],[100,160]];c={gx:positions[k][0],gy:positions[k][1]};}
       else if(type==='maze'){var mz=MAZES[k];c={grid:mz.grid,start:mz.start,goal:mz.goal,holes:mz.holes,cols:mz.cols,rows:mz.rows};}
       else if(type==='trace'){var tr=TRACES[k];c={pts:tr.pts,tol:tr.tol};}
       else if(type==='slidepuzzle'){var sp=SLIDE_PUZZLES[k];c={size:sp.size,tiles:sp.tiles};}
@@ -1437,7 +1489,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       if(sc){
         var big=sc.querySelector('.big'); var lead=sc.querySelector('.lead'); var btn=document.getElementById('btn-fake-continue');
         if(big) big.textContent='才怪！';
-        if(lead) lead.innerHTML='还有 75 关。<br>你以为这就完了？';
+        if(lead) lead.innerHTML='还有 300 关。<br>你以为这就完了？';
         if(btn){ btn.textContent='继续受苦'; btn.className='btn danger'; }
       }
     },3000));
