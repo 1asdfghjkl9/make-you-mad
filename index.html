@@ -609,7 +609,7 @@ h1{font-size:clamp(30px,8vw,46px);font-weight:900;letter-spacing:1px;background:
       else if(type==='countfast'){var syms=['○','□','△'];var total=5+k*3;var shapes=[];var rng=detShuf([0,1,2,0,1,2,0,1,2,0,1,2,0,1,2],k*5+3);for(var j=0;j<total;j++)shapes.push(syms[rng[j%rng.length]]);var ask=syms[k%3];var target=0;shapes.forEach(function(s){if(s===ask)target++;});c={shapes:shapes,target:target,total:total};prompt='几个'+ask+'？';}
       else if(type==='colormix'){var targets=['#dc2626','#22c55e','#0ea5e9','#a855f7','#f97316','#eab308','#ec4899','#14b8a6','#8b5cf6','#f43f5e'];c={target:targets[k]};}
       else if(type==='path'){var pt=PATHS[k];c={rows:pt.rows,cols:pt.cols,path:pt.path};}
-      else if(type==='decode'){var words=['abc','def','ghi','cab','fig'];var encoded=words[k].split('').map(function(ch){return DECODE_MAP[ch]||'?';}).join('');c={encoded:encoded,answer:words[k]};prompt='解码：'+encoded+'（a=1,b=2…）';}
+      else if(type==='decode'){var words=['abc','def','ghi','cab','fig','bha','gad','ebc','fac','big'];var encoded=words[k].split('').map(function(ch){return DECODE_MAP[ch]||'?';}).join('');c={encoded:encoded,answer:words[k]};prompt='解码：'+encoded+'（a=1,b=2…）';}
       else if(type==='chain'){var counts=[3,4,6,8,5,7,4,9,6,5];var order=detShuf([0,1,2,3,4,5,6,7,8].slice(0,counts[k]),k*17+3);c={count:counts[k],order:order,showMs:Math.max(200,420-k*40)};}
       else if(type==='weight'){var targets=[2,4,7,11,5,8,3,13,6,9];c={target:targets[k]};}
       else if(type==='blind'){var positions=[[150,120],[80,40],[180,160],[50,170],[200,50],[120,80],[170,140],[40,100],[190,90],[100,160]];c={gx:positions[k][0],gy:positions[k][1]};}
